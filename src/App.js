@@ -4,6 +4,7 @@ import './App.css';
 
 // Component 
 import Posts from './components/Posts';
+import Pagination from './components/Pagination';
 
 function App() {
 
@@ -12,10 +13,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1); // start at page one
   const [postsPerPage, setPostsPerPage] = useState(10);
 
-
   // useEffect works whenever the component mounts AND updates
   useEffect(() => {
-
     // Cannot use async direct in Use Effect so creating function that will
     const fetchPosts = async () => {
       setLoading(true); // change Loading to true
@@ -31,14 +30,17 @@ function App() {
   // console.log(posts)
 
   // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage; // to test
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-
-
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return (
     <div className="container mt-5">
       <h1 className="text-primary mb-3">My Blog</h1>
-      < Posts posts={posts} loading={loading} />
+      <Posts posts={currentPosts} loading={loading} />
+      <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} />
     </div>
   );
 }
