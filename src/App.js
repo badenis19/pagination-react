@@ -27,8 +27,6 @@ function App() {
 
   }, []); // need the empty array as 2nd argument so it only runs when it mounts and not loop
 
-  // console.log(posts)
-
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage; // to test
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
